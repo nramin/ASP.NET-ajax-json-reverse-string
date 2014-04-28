@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>assignment</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#string').keyup(function () {
+                console.log('asdf');
+                $.ajax({
+                    url: 'WebService.asmx/ReverseString',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        s: $('#string').val()
+                    }),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data, textStatus, jqXHR) {
+                        console.log('success');
+                        var args = Array.prototype.slice.call(arguments);
+                        args.forEach(function (arg) {
+                            console.log(arg);
+                        });
+                        $('#content').text(data.d);
+                    },
+                    error: function () {
+                        console.log('fail');
+                        var args = Array.prototype.slice.call(arguments);
+                        args.forEach(function (arg) {
+                            console.log(arg);
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="text" id="string" />
+    <div id="content"></div>
+</body>
+</html>
